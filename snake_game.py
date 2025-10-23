@@ -176,7 +176,8 @@ class SnakeGame:
             # Check collision with snake head
             head_x, head_y = self.snake.get_head_pos()
             distance = math.sqrt((self.boss.x - head_x)**2 + (self.boss.y - head_y)**2)
-            if distance < GRID_SIZE * 2:
+            boss_radius = BOSS_SIZE * GRID_SIZE / 2
+            if distance < boss_radius + GRID_SIZE / 2:
                 if self.boss.take_damage(1):
                     self.score_manager.add_score(BOSS_SCORE)
                     self.boss = None

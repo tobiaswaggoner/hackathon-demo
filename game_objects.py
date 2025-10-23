@@ -129,6 +129,13 @@ class Food:
                     self.growth_value = FOOD_BONUS_GROWTH if self.is_bonus else FOOD_NORMAL_GROWTH
                     return
 
+        # Fallback: If all attempts failed, force a position anyway
+        self.position = self.random_position()
+        self.is_bonus = random.random() < BONUS_FOOD_CHANCE
+        self.color = COLOR_BONUS_FOOD if self.is_bonus else COLOR_FOOD
+        self.score_value = FOOD_BONUS_SCORE if self.is_bonus else FOOD_NORMAL_SCORE
+        self.growth_value = FOOD_BONUS_GROWTH if self.is_bonus else FOOD_NORMAL_GROWTH
+
     def draw(self, surface):
         """Render the food"""
         x = self.position[0] * GRID_SIZE
@@ -189,6 +196,7 @@ class Enemy:
         self.direction = random.uniform(0, 360)  # Random initial direction
         self.speed = SNAKE_SPEED * ENEMY_SPEED * GRID_SIZE / FPS * 60
         self.patrol_timer = 0
+        self.patrol_target_time = random.uniform(2.0, 3.0)  # Fixed patrol duration
         self.shoot_timer = 0
         self.ai_decision_timer = 0
 

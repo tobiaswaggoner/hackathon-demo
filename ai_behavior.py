@@ -37,9 +37,10 @@ def update_enemy_ai(enemy, dt, snake, enemies):
 def _patrol_behavior(enemy, dt):
     """Random wandering around spawn point"""
     # Change direction every 2-3 seconds
-    if enemy.patrol_timer > random.uniform(2.0, 3.0):
+    if enemy.patrol_timer > enemy.patrol_target_time:
         enemy.direction = random.uniform(0, 360)
         enemy.patrol_timer = 0
+        enemy.patrol_target_time = random.uniform(2.0, 3.0)  # Set new target time
 
     # Move in current direction
     enemy.x += math.cos(math.radians(enemy.direction)) * enemy.speed * dt
